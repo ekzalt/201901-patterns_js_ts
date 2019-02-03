@@ -4,18 +4,22 @@ export const callbackWorker = (params: Object, callback: (error: Error | null, d
   // call async callback
   if (!params) return process.nextTick(() => callback(new Error('Invalid params'), ''));
 
-  // do some hard Input/Output operation with params
-
   // call async callback
-  process.nextTick(() => callback(null, JSON.stringify(params)));
+  process.nextTick(() => {
+    // do some hard Input/Output operation with params
+
+    callback(null, JSON.stringify(params));
+  });
 };
 
 export const promiseWorker = (params: Object) => {
   if (!params) return Promise.reject(new Error('Invalid params'));
 
-  // do some hard Input/Output operation with params
+  return new Promise((resolve, reject) => {
+    // do some hard Input/Output operation with params
 
-  return Promise.resolve(JSON.stringify(params));
+    resolve(JSON.stringify(params));
+  });
 };
 
 export const functionWorker = async (params: Object) => {
@@ -33,10 +37,12 @@ export const emitterWorker = (params: Object) => {
     // emit async
     process.nextTick(() => emitter.emit('error', new Error('Invalid params')));
   } else {
-    // do some hard Input/Output operation with params
-
     // emit async
-    process.nextTick(() => emitter.emit('data', JSON.stringify(params)));
+    process.nextTick(() => {
+      // do some hard Input/Output operation with params
+      
+      emitter.emit('data', JSON.stringify(params));
+    });
   }
 
   return emitter;
