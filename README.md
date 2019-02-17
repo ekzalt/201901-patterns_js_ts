@@ -385,7 +385,7 @@ const sumRating = (prevRating: number, lastGame: number): number => {
 class Order {
   constructor() {
     this._storage = new Storage();
-    this._validaror = new Validator();
+    this._validator = new Validator();
   }
 }
 
@@ -393,13 +393,13 @@ class Order {
 class Order {
   constructor(params = {}) {
     this._storage = params.storage || new Storage();
-    this._validaror = params.validaror || new Validator();
+    this._validator = params.validator || new Validator();
   }
 }
 
 const testOder = new Order({
   storage: new MockStorage(),
-  validaror: new MockValidator(),
+  validator: new MockValidator(),
 });
 ```
 
@@ -441,3 +441,14 @@ Oсновные идеи данного шаблона:
 - неблокирующие операции ввода/вывода.
 
 Реализуется разными способами посредством использования *Event Loop* - с помошью Callback, Observer, Promise, Async/Await.
+
+### Revealing Module
+
+Revealing Module Pattern `./patterns/module`
+
+Одной из основных проблем языка JavaScript является отсутствие пространств имен. Популярным методом решения этой проблемы является шаблон *Revealing Module* (Открытый модуль). Для создания приватных свойств и методов используется ограниченная область видимости внутри функции и замыкания. Модульность платформы *Node.js* активно поощряет следование *принципу единственной ответственности* (Single Responsibility Principle, SRP): каждый модуль должен отвечать только за одну функциональную возможность, и эта ответственность должна быть
+полностью реализована этим модулем.
+
+### Substack
+
+Экспортируйте основные функциональные возможности модуля в виде единственной функции. Экспортированная функция используется как пространство имен для прочих вспомогательных возможностей. Экспорт Конструктора, Класса, Фабричной функции - это частные случаи этого общего шаблона.
