@@ -1,8 +1,8 @@
 import { Callback } from './type';
 
-const syncAdd = (a: number, b: number, callback: Callback) => callback(null, a + b);
+const syncAdd = (a: number, b: number, callback: Callback): void => callback(null, a + b);
 
-const asyncAdd = (a: number, b: number, callback: Callback) => {
+const asyncAdd = (a: number, b: number, callback: Callback): void => {
   process.nextTick(() => callback(null, a + b));
 };
 

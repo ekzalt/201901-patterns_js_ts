@@ -1,7 +1,7 @@
 import { readFile } from 'fs';
 import { Callback } from './type';
 
-const readJson = (filename: string, callback: Callback) => {
+const readJson = (filename: string, callback: Callback): void => {
   readFile(filename, 'utf8', (err, data) => {
     if (err) return callback(err);
 
