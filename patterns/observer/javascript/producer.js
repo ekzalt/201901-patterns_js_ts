@@ -16,13 +16,21 @@ class Producer {
       const data = { data: Math.round(Math.random() * 100) };
       console.log(this.name, data);
 
-      this.subscribers.forEach((e) => e.emit(data.data % 2 === 0 ? "even" : "odd", data));
+      this.notify(data);
     }, 1000);
 
     setTimeout(() => {
       console.log("--- stop ---", this.name);
       clearInterval(this.intervalId);
     }, 20 * 1000);
+  }
+
+  /**
+   * ### notify
+   * @param {IData} data
+   */
+  notify(data) {
+    this.subscribers.forEach((e) => e.emit(data.data % 2 === 0 ? "even" : "odd", data));
   }
 
   /**
